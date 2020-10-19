@@ -14,10 +14,10 @@ I'm not the author of any of this files, just adding here to make it easy to acc
 
 ## Repositories
 
-Web-app: https://github.com/romansegador/web-app
-Books Service: https://github.com/romansegador/books-service
-Testers Service: https://github.com/romansegador/testers-service
-Activity Service: https://github.com/romansegador/activity-service
+- Web-app: https://github.com/romansegador/web-app
+- Books Service: https://github.com/romansegador/books-service
+- Testers Service: https://github.com/romansegador/testers-service
+- Activity Service: https://github.com/romansegador/activity-service
 
 ## If you want to try Contract Testing
 
