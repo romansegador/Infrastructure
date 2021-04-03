@@ -1,8 +1,28 @@
-
 # Infraestructure
-This repo intends to collect docker-compose files needed to set up the infrastructure needed for other workshops.
 
-I'm not the author of any of this files, just adding here to make it easy to access:
+# Workshop
+
+In order to start all the application that will be covered in the workshop, including the needed infrastructure, just run the [docker-compose](docker-compose.yml) located in the root file.
+First time, you will need to pull all the images (it will take some time): ```docker-compose pull``` at the root folder of this repo.
+Afterwards just write the command  ```docker-compose up -d``` at the root folder of this repo to start the following (it could take a minute after that command finishes start all the apps async):
+
+* [Pact-broker](http://localhost:9292): Open your browser with url http://localhost:9292
+* [Web-app](http://localhost:12220): Open your browser with url http://localhost:12220
+* Books-service: Endpoints exposed in localhost:32800
+  * [get all books](http://localhost:32800/api/books) -> http://localhost:32800/api/books (use postman, insomnia, etc...)
+  * [get books by author](http://localhost:32800/api/books/byauthor?firstName=Lisa&lastName=Crispin) http://localhost:32800/api/books/byauthor?firstName=Lisa&lastName=Crispin (use postman, insomnia, etc...)
+* Testers-service: Endpoints exposed in localhost:32801
+  * [get all testers](http://localhost:32801/api/testers) -> http://localhost:32801/api/testers (use postman, insomnia, etc...)
+* Activity-service: This service just read from a Kafka topic and log a message each time the endpoint in Testers service is called.
+  * Access the logs for the container by:
+    * ```docker ps | grep activity-service``` -> note the container id, for example 0fa89fb99408
+    * ```docker logs --follow <containerId>``` -> example ```docker logs --follow 0fa89fb99408```
+* Kafka: connect your apps to localhost:9092
+
+
+This repo intends to collect docker-compose files needed to set up the infrastructure needed for a workshop.
+
+Some of the docker-compose files used here are not mine:
 
 * Pact-broker: Thanks to the pact-foundation =>  https://github.com/pact-foundation/pact-broker-docker/blob/master/docker-compose.yml
 * Apache Kafka: https://github.com/confluentinc/cp-all-in-one/blob/6.0.0-post/cp-all-in-one-community/docker-compose.yml
@@ -29,14 +49,6 @@ Examples are:
   - Consumer example (REST) for call to Books Service.
   - Producer example (Messaging-Kafka). Event emmited for each call to the exposed endpoint.
 - Activity-service: Consumer example for Kafka (Spring boot).
-
-## If you want to run all the apps
-
-1. Start Kafka
-2. Start Books Service
-3. Start Testers Service (Needs Kafka & Books service running)
-4. Start Web-app (Needs Books Service running)
-5. Start Activity Service (Needs Kafka Running)
 
 
 ### Presentation
